@@ -1,0 +1,14 @@
+{
+  "name": "Малэсеп — мал чарбаңыз бир жерде",
+  "short_name": "Малэсеп",
+  "description": "Мал чарбаңызды каттоо жана санын эсептөө үчүн офлайн иштеген тиркеме.",
+  "lang": "ky",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f6f6f0",
+  "theme_color": "#12251d",
+  "icons": [
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}

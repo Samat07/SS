@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="ky">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#12251d">
+  <meta name="description" content="Мал чарбаңызды каттоо жана санын эсептөө үчүн офлайн иштеген тиркеме.">
+  <title>Малэсеп — мал чарбаңыз бир жерде</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="ambient ambient-one"></div>
+  <div class="ambient ambient-two"></div>
+  <header class="topbar">
+    <a class="brand" href="./" aria-label="Малэсеп башкы бет">
+      <span class="brand-mark">М</span>
+      <span><strong>малэсеп</strong><small>ЧАРБАҢЫЗ БИР ЖЕРДЕ</small></span>
+    </a>
+    <div class="top-actions">
+      <span class="connection"><i id="connectionDot"></i><span id="connectionText">Текшерилүүдө</span></span>
+      <button id="installButton" class="icon-button install-button" hidden aria-label="Тиркемени орнотуу">↓</button>
+      <button id="lockButton" class="quiet-button" hidden>Кулпулоо</button>
+      <button id="logoutButton" class="quiet-button" hidden>Чыгуу</button>
+    </div>
+  </header>
+
+  <main>
+    <section id="authScreen" class="auth-layout">
+      <div class="welcome-panel">
+        <div class="welcome-pill"><span>✳</span> Мал чарбаңызды так эсептеңиз</div>
+        <h1>Ар бир малдын<br><em>өз эсеби бар.</em></h1>
+        <p>Малчыларга арналган эсеп-кысап. Адамдарды, малды жана ар бир өзгөрүүнү бир жерден башкарыңыз.</p>
+        <div class="welcome-points">
+          <span><b>01</b> Малдын эсеби өзү жаңыланат</span>
+          <span><b>02</b> Сүрөт, видео жана окуянын датасы</span>
+          <span><b>03</b> Интернетсиз да иштей берет</span>
+        </div>
+        <div class="welcome-landscape" aria-hidden="true">
+          <span class="sun"></span><span class="hill hill-back"></span><span class="hill hill-front"></span>
+          <span class="field-line"></span><span class="field-line second"></span>
+        </div>
+      </div>
+      <div class="auth-card">
+        <div class="auth-mobile-mark">М</div>
+        <div class="eyebrow">ЖЕКЕ КАБИНЕТ</div>
+        <h2 id="authTitle">Кош келиңиз</h2>
+        <p id="authSubtitle" class="muted">Кабинетиңизге кирүү үчүн маалыматыңызды жазыңыз.</p>
+        <form id="authForm">
+          <label>Email дареги<input id="usernameInput" type="email" autocomplete="email" maxlength="320" required placeholder="Мисалы: akylbek@mail.com"></label>
+          <label>Сырсөз<input id="passwordInput" type="password" autocomplete="current-password" minlength="8" required placeholder="Кеминде 8 белги"></label>
+          <button id="authSubmit" class="primary-button full-button" type="submit">Кирүү <span>→</span></button>
+        </form>
+        <div id="authMessage" class="form-message" role="status"></div>
+        <div class="auth-switch"><span id="switchPrompt">Аккаунтуңуз жокпу?</span> <button id="switchAuth" class="text-button">Катталуу</button></div>
+        <button id="resetPasswordButton" class="support-link text-button" type="button">Сырсөздү унуттуңузбу? <b>Email аркылуу калыбына келтирүү ↗</b></button>
+      </div>
+    </section>
+
+    <section id="pinScreen" class="pin-layout" hidden>
+      <div class="pin-card">
+        <div class="auth-mobile-mark">М</div>
+        <div class="eyebrow">МААЛЫМАТТЫ КОРГОО</div>
+        <h2 id="pinTitle">Купуя PIN-код түзүңүз</h2>
+        <p id="pinDescription" class="muted">Мал маалыматын ачуу үчүн 4 сандан турган код коюңуз.</p>
+        <form id="pinForm">
+          <label>4 орундуу PIN-код<input id="pinInput" type="password" inputmode="numeric" pattern="[0-9]{4}" maxlength="4" autocomplete="off" required placeholder="••••"></label>
+          <label id="pinConfirmLabel">PIN-кодду кайталаңыз<input id="pinConfirmInput" type="password" inputmode="numeric" pattern="[0-9]{4}" maxlength="4" autocomplete="off" required placeholder="••••"></label>
+          <button id="pinSubmit" class="primary-button full-button" type="submit">PIN-код түзүү <span>→</span></button>
+        </form>
+        <div id="pinMessage" class="form-message" role="status" aria-live="polite"></div>
+        <button id="forgotPinButton" class="support-link text-button" type="button" hidden>PIN-код эсимде жок — аккаунтка сырсөз менен кайра кирүү</button>
+      </div>
+    </section>
+
+    <section id="appScreen" hidden>
+      <div class="hero-row">
+        <div>
+          <div class="eyebrow">ЖЕКЕ МАЛ ЧАРБАСЫ</div>
+          <h1>Салам, <span id="greetingName">малчы</span> <span class="wave">✳</span></h1>
+          <p class="muted">Чарбаңыздын абалы жана акыркы жаңылыктар.</p>
+        </div>
+        <div class="hero-actions"><button id="settingsButton" class="outline-button settings-button">⚙ Баалар</button><div class="today-card"><span>БҮГҮН</span><strong id="todayDate">—</strong><small id="syncStatus">Жергиликтүү маалымат</small></div></div>
+      </div>
+      <section class="voice-card" aria-labelledby="voiceTitle">
+        <button id="voiceButton" class="voice-button" type="button" aria-label="Үн буйругун айтуу">
+          <span class="voice-mic" aria-hidden="true">🎙</span>
+          <span id="voiceButtonText">Буйрук айтуу</span>
+        </button>
+        <div class="voice-copy">
+          <h2 id="voiceTitle">Үн менен мал эсебин өзгөртүү</h2>
+          <p id="voiceStatus" role="status" aria-live="polite">Мисалы: «Шайлообек 1 кой 2 козу алды».</p>
+          <p class="voice-hint">Малдын саны үн менен таанылат. Өзгөртүү ырасталмайынча сакталбайт.</p>
+        </div>
+        <div id="voiceConfirmation" class="voice-confirmation" hidden>
+          <p id="voiceTranscript"></p>
+          <div class="voice-confirm-actions">
+            <button id="confirmVoiceButton" class="primary-button" type="button">Ооба, өзгөртүү</button>
+            <button id="cancelVoiceButton" class="outline-button" type="button">Жокко чыгаруу</button>
+          </div>
+        </div>
+      </section>
+      <section class="summary-grid" aria-label="Жалпы малдын саны">
+        <article class="summary-card sheep-summary"><div class="summary-top"><span>КОЙ ЖАНА ЭЧКИ</span><span class="summary-icon">♧</span></div><strong id="totalSheep">0</strong><small>баш · бардык адамдар</small><div class="summary-bottom"><span>Кой, козу, эчки, улак</span><span>↗</span></div></article>
+        <article class="summary-card cow-summary"><div class="summary-top"><span>УЙ</span><span class="summary-icon">♧</span></div><strong id="totalCows">0</strong><small>баш · бардык адамдар</small><div class="summary-bottom"><span>Жеке анкета жана сүрөт</span><span>↗</span></div></article>
+        <article class="summary-card horse-summary"><div class="summary-top"><span>ЖЫЛКЫ</span><span class="summary-icon">♞</span></div><strong id="totalHorses">0</strong><small>баш · бардык адамдар</small><div class="summary-bottom"><span>Ар бир адамдын эсеби</span><span>↗</span></div></article>
+        <article class="summary-card people-summary"><div class="summary-top"><span>АДАМДАР</span><span class="summary-icon">♙</span></div><strong id="totalPeople">0</strong><small>чарбадагы адамдар</small><div class="summary-bottom"><span>Адамдарды башкаруу</span><span>↗</span></div></article>
+        <article class="summary-card daily-cost-summary"><div class="summary-top"><span>БИР КҮНДҮК ЧЫГЫМ</span><span class="summary-icon">◷</span></div><strong class="cost-value" id="dailyCost">0 сом</strong><small>учурдагы малдын эсеби</small><div class="summary-bottom"><span>Бааны өзгөртүү</span><button class="cost-settings-link" data-open-settings type="button">⚙</button></div></article>
+        <article class="summary-card total-cost-summary"><div class="summary-top"><span>ЖАЛПЫ ТОПТОЛГОН</span><span class="summary-icon">↗</span></div><strong class="cost-value" id="totalCost">0 сом</strong><small id="costPeriod">каттоо башталгандан бери</small><div class="summary-bottom"><span>Мурунку күндөрдүн эсеби</span><span>✓</span></div></article>
+      </section>
+      <div class="content-layout">
+        <section class="main-column">
+          <div class="section-heading"><div><div class="eyebrow">ЧАРБАНЫ БАШКАРУУ</div><h2>Малдын түрүн тандаңыз</h2></div><button id="addPersonButton" class="primary-button"><span>＋</span> Адам кошуу</button></div>
+          <div class="category-tabs" role="tablist" aria-label="Малдын түрлөрү">
+            <button class="category-tab active" data-category="sheep" role="tab"><span class="tab-icon">♧</span><span>Кой-эчки</span><small id="tabSheepCount">0</small></button>
+            <button class="category-tab" data-category="cow" role="tab"><span class="tab-icon">♧</span><span>Уй</span><small id="tabCowCount">0</small></button>
+            <button class="category-tab" data-category="horse" role="tab"><span class="tab-icon">♞</span><span>Жылкы</span><small id="tabHorseCount">0</small></button>
+          </div>
+          <div class="list-toolbar"><div><h3 id="peopleHeading">Кой-эчкиси бар адамдар</h3><p id="peopleHint">Ар бир адамдын малын өзүнчө көрүңүз</p></div><label class="search-box"><span>⌕</span><input id="peopleSearch" placeholder="Атын издөө" aria-label="Адамдын атын издөө"></label></div>
+          <div id="peopleList" class="people-list"></div>
+          <div id="emptyState" class="empty-state" hidden><span class="empty-icon">✳</span><h3>Азырынча адам кошулган жок</h3><p>Алгач чарбаңыздагы адамды кошуп, малдын эсебин киргизиңиз.</p><button id="emptyAddButton" class="primary-button">＋ Адам кошуу</button></div>
+        </section>
+        <aside class="side-column">
+          <div class="side-card activity-card"><div class="side-card-heading"><div><div class="eyebrow">АКЫРКЫ ӨЗГӨРҮҮЛӨР</div><h3>Окуялар тарыхы</h3></div><span class="activity-mark">↗</span></div><div id="activityList" class="activity-list"></div><div id="activityEmpty" class="activity-empty">Мал өлгөндө же чарбадан чыкканда окуя ушул жерде көрүнөт.</div></div>
+          <div class="help-card"><span class="help-symbol">✦</span><div><strong>Маалымат офлайн сакталат</strong><p>Интернет келгенде башка түзмөктөр менен автоматтык шайкештешет.</p></div></div>
+        </aside>
+      </div>
+      <footer class="app-footer"><span>Малэсеп · Чарбаңызды ишенимдүү эсептеңиз</span><a href="mailto:akylbekovsamat075@gmail.com">Колдоо ↗</a></footer>
+    </section>
+  </main>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <div id="modalRoot"></div>
+  <script src="config.js" defer></script>
+  <script src="app.js" defer></script>
+</body>
+</html>
