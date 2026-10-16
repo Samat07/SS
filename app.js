@@ -781,7 +781,7 @@
       const qty = event.category === "cow" ? "1 уй" : `${event.quantity} ${event.animalLabel || "мал"}`;
       const photoCount = event.attachments?.length || 0;
       const owner = personById(event.personId);
-      return `<div class="activity-item"><span class="activity-icon ${type}">${event.kind === "death" ? "†" : "↗"}</span><span class="activity-copy"><strong>${escapeHtml(owner?.name || "Өчүрүлгөн адам")}</strong> — ${qty} ${description}${photoCount ? ` · ${photoCount} медиа` : ""}${event.note ? `<br>${escapeHtml(event.note)}` : ""}<small>${formatDate(event.date)}</small></span></div>`;
+      return `<div class="activity-item"><span class="activity-icon ${type}">${event.kind === "death" ? "●" : "↗"}</span><span class="activity-copy"><strong>${escapeHtml(owner?.name || "Өчүрүлгөн адам")}</strong> — ${qty} ${description}${photoCount ? ` · ${photoCount} медиа` : ""}${event.note ? `<br>${escapeHtml(event.note)}` : ""}<small>${formatDate(event.date)}</small></span></div>`;
     }).join("");
   }
 
